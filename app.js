@@ -24,8 +24,8 @@
     {c:[532,420],w:360,s:72,arcs:[['kin','pavia']],pins:[['kin'],['pavia','Italy','r','italy']]},
     {c:[506,343],w:66,s:68,arcs:[['lyon','win'],['win','lon']],pins:[['lyon','Lyon','l','lyon'],['win','Winchester','l','winchester'],['lon','London','r','london']]},
     {c:[400,365],w:345,s:68,arcs:[['pavia','hop']],pins:[['pavia'],['hop','Boston','t','boston'],['ny','New York','b','ny']]},
-    {c:[600,398],w:300,s:68,arcs:[['pavia','dxb']],pins:[['pavia'],['dxb','Dubai','r','dubai'],['auh','Abu Dhabi','l','abudhabi']]},
     {c:[516,343],w:104,s:72,pins:[['chi','Chichester','l','chichester'],['hfarm','H-FARM','l','hfarm']]},
+    {c:[600,398],w:300,s:68,arcs:[['hfarm','dxb']],pins:[['hfarm'],['dxb','Dubai','r','dubai'],['auh','Abu Dhabi','l','abudhabi']]},
     {c:[712,376],w:470,s:72,arcs:[['hfarm','sha'],['sha','tok']],pins:[['hfarm'],['sha','China','l','china'],['tok','Japan','t','japan']]}
   ];
   function pic(n){return 'img/pl/'+n+(n==='congo'?'.webp':'.jpg')}
