@@ -18,12 +18,13 @@
   });
 
   /* map coordinates: Mercator, world width 1000 */
-  var P={kin:[542.5,511.96],pavia:[525.44,358.98],hop:[301.33,370.36],ny:[294.4,376.07],win:[496.36,334.51],lon:[499.67,332.51],lyon:[513.44,356.72],hfarm:[534.31,357.2],chi:[497.83,335.48],sha:[837.42,408.61],tok:[888.03,393.78]};
+  var P={kin:[542.5,511.96],pavia:[525.44,358.98],hop:[301.33,370.36],ny:[294.4,376.07],dxb:[653.5,427.6],auh:[651,429.9],win:[496.36,334.51],lon:[499.67,332.51],lyon:[513.44,356.72],hfarm:[534.31,357.2],chi:[497.83,335.48],sha:[837.42,408.61],tok:[888.03,393.78]};
   var CH=[
     {c:[542,480],w:170,s:104,pins:[['kin','DR Congo','t','congo']]},
     {c:[532,420],w:360,s:72,arcs:[['kin','pavia']],pins:[['kin'],['pavia','Italy','r','italy']]},
     {c:[506,343],w:66,s:68,arcs:[['lyon','win'],['win','lon']],pins:[['lyon','Lyon','l','lyon'],['win','Winchester','l','winchester'],['lon','London','r','london']]},
     {c:[400,365],w:345,s:68,arcs:[['pavia','hop']],pins:[['pavia'],['hop','Boston','t','boston'],['ny','New York','b','ny']]},
+    {c:[600,398],w:300,s:68,arcs:[['pavia','dxb']],pins:[['pavia'],['dxb','Dubai','r','dubai'],['auh','Abu Dhabi','l','abudhabi']]},
     {c:[516,343],w:104,s:72,pins:[['chi','Chichester','l','chichester'],['hfarm','H-FARM','l','hfarm']]},
     {c:[712,376],w:470,s:72,arcs:[['hfarm','sha'],['sha','tok']],pins:[['hfarm'],['sha','China','l','china'],['tok','Japan','t','japan']]}
   ];

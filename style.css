@@ -304,52 +304,29 @@ h1 span:last-child{animation-delay:.08s}
 .shown .sport-photo{transition:transform 1.400s var(--ease)}
 .sport-body{padding:16px 20px 20px}
 .sports{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:14px}
-.sp{position:relative;border-radius:20px;background:linear-gradient(170deg,#163F86,#2A69BD);color:#fff;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:10px 12px}
-.sp.w3{grid-column:span 3;height:150px}
-.sp.w2{grid-column:span 2;height:128px}
-.sp svg{position:absolute;right:6px;top:8px;width:104px;height:104px}
-.sp.w2 svg{width:82px;height:82px;left:50%;right:auto;margin-left:-41px;top:6px}
-.sp b{position:relative;font-size:15px;line-height:20px;font-weight:600}
-.sp.w2 b{font-size:13px;line-height:18px;text-align:center}
-.num{position:absolute;left:12px;top:10px;font-style:normal;font-size:24px;line-height:28px;font-weight:600;font-stretch:75%}
+.sp{position:relative;border-radius:20px;background:#0A1A3C;color:#fff;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:10px 12px}
+.sp.w3{grid-column:span 3;height:158px}
+.sp.w2{grid-column:span 2;height:136px}
+.sp img,.wd img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 1.600s var(--ease)}
+.in .sp img,.in .wd img{transform:none}
+.sp:after,.wd:after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(5,14,34,.82))}
+.sp b{position:relative;z-index:1;font-size:15px;line-height:20px;font-weight:600}
+.sp.w2 b{font-size:13px;line-height:18px}
+.num{position:absolute;z-index:1;right:12px;top:10px;font-style:normal;font-size:26px;line-height:28px;font-weight:600;font-stretch:75%}
 .js .anim:not(.in) .sp,.js .anim:not(.in) .wd{opacity:0;transform:translateY(12px) scale(.97)}
 .in .sp,.in .wd{transition:opacity .35s ease,transform .6s var(--spring)}
 .in .sp:nth-child(2),.in .wd:nth-child(2){transition-delay:.06s}.in .sp:nth-child(3),.in .wd:nth-child(3){transition-delay:.12s}.in .sp:nth-child(4),.in .wd:nth-child(4){transition-delay:.18s}.in .sp:nth-child(5),.in .wd:nth-child(5){transition-delay:.24s}.in .wd:nth-child(6){transition-delay:.3s}
 .widgets{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
-.wd{position:relative;height:132px;border-radius:20px;overflow:hidden;padding:12px 14px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff}
-.wd.wide{grid-column:span 2;height:104px}
-.wt{position:relative}
+.wd{position:relative;height:140px;border-radius:20px;overflow:hidden;padding:12px 14px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;background:#0A1A3C}
+.wd.wide{grid-column:span 2;height:112px}
+.wt{position:relative;z-index:1}
 .wt b{display:block;font-size:17px;line-height:22px;font-weight:600}
-.wt small{display:block;font-size:13px;line-height:18px;opacity:.78}
-.music{background:linear-gradient(120deg,#163F86,#2A69BD)}
-.eq{position:absolute;right:16px;top:18px;bottom:18px;display:flex;align-items:flex-end;gap:5px;width:98px}
+.wt small{display:block;font-size:13px;line-height:18px;opacity:.86}
+.eq{position:absolute;z-index:1;right:16px;top:20px;bottom:20px;display:flex;align-items:flex-end;gap:5px;width:90px}
 .eq i{flex:1;height:var(--h);border-radius:3px;background:#fff;transform-origin:bottom}
-.run .eq i,.in .eq i{animation:eq 1.100s ease-in-out var(--d) infinite alternate}
+.in .eq i{animation:eq 1.100s ease-in-out var(--d) infinite alternate}
 @keyframes eq{from{transform:scaleY(.35)}to{transform:none}}
-.film{background:#0B0F19}
-.frame{position:absolute;left:0;right:0;top:14px;height:62px;display:grid;place-items:center;background:#1A2130;box-shadow:0 -7px 0 #0B0F19,0 7px 0 #0B0F19}
-.frame svg{width:48px;height:48px}
-.clap{transform-box:fill-box;transform-origin:0 100%}
-.in .clap{animation:clap 1.100s var(--ease) .4s backwards}
-@keyframes clap{0%,45%{transform:rotate(-20deg)}60%{transform:none}72%{transform:rotate(-9deg)}85%,100%{transform:none}}
-.style{background:#EFE8DC;color:var(--ink)}
-.wg{position:absolute;right:12px;top:10px;font-size:58px;line-height:0}
-.wg .i{width:58px;height:58px}
-.style .wg{color:#10213F}
-.fin{background:var(--tint);color:var(--ink)}
-.spark{position:absolute;left:0;right:0;top:12px;width:100%;height:68px}
-.rise{stroke-dasharray:1 1}
-.in .rise{animation:rise 1s ease .45s backwards}
-@keyframes rise{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
-.geop{background:linear-gradient(175deg,#1B55A8,#2A69BD)}
-.geo{position:absolute;inset:0;width:100%;height:100%}
-.geo-dot{transform-box:fill-box;transform-origin:center}
-.in .geo-dot{animation:ping2 2.200s ease-out 1s infinite}
-@keyframes ping2{0%{opacity:1}60%{opacity:.35}100%{opacity:1}}
-.tech{background:linear-gradient(120deg,#0E1A33,#10213F)}
-.tech .wg{right:18px;top:50%;margin-top:-29px;color:#7FB2F0}
-.in .tech .wg .i{animation:pulse 2.400s ease-in-out .6s infinite}
-@keyframes pulse{50%{filter:drop-shadow(0 0 10px #7FB2F0)}}
+.sf-logo{display:block;width:min(168px,56%);height:auto;margin-bottom:12px}
 .logo-h{line-height:0}
 .fwdri-logo{width:min(190px,60%);height:auto}
 .cas-logo{display:block;width:min(236px,68%);height:auto;margin-bottom:14px}
