@@ -18,15 +18,17 @@
   });
 
   /* map coordinates: Mercator, world width 1000 */
-  var P={kin:[542.5,511.96],pavia:[525.44,358.98],hop:[301.33,370.36],win:[496.36,334.51],lon:[499.67,332.51],lyon:[513.44,356.72],hfarm:[534.31,357.2],chi:[497.83,335.48],sha:[837.42,408.61],tok:[888.03,393.78]};
+  var P={kin:[542.5,511.96],pavia:[525.44,358.98],hop:[301.33,370.36],ny:[294.4,376.07],win:[496.36,334.51],lon:[499.67,332.51],lyon:[513.44,356.72],hfarm:[534.31,357.2],chi:[497.83,335.48],sha:[837.42,408.61],tok:[888.03,393.78]};
   var CH=[
-    {c:[542,505],w:170,pins:[['kin','DR Congo','t']]},
-    {c:[532,420],w:360,arcs:[['kin','pavia']],pins:[['kin'],['pavia','Italy','t']]},
-    {c:[412,348],w:345,arcs:[['pavia','hop']],pins:[['pavia'],['hop','Massachusetts','b']]},
-    {c:[506,343],w:66,pins:[['win','Winchester','l'],['lon','London','r'],['lyon','Lyon','b']]},
-    {c:[516,343],w:104,pins:[['chi','Chichester','t'],['hfarm','H-FARM','b']]},
-    {c:[712,376],w:470,arcs:[['hfarm','sha'],['sha','tok']],pins:[['hfarm'],['sha','China','b'],['tok','Japan','t']]}
+    {c:[542,480],w:170,s:104,pins:[['kin','DR Congo','t','congo']]},
+    {c:[532,420],w:360,s:72,arcs:[['kin','pavia']],pins:[['kin'],['pavia','Italy','r','italy']]},
+    {c:[506,343],w:66,s:68,arcs:[['lyon','win'],['win','lon']],pins:[['lyon','Lyon','l','lyon'],['win','Winchester','l','winchester'],['lon','London','r','london']]},
+    {c:[400,365],w:345,s:68,arcs:[['pavia','hop']],pins:[['pavia'],['hop','Boston','t','boston'],['ny','New York','b','ny']]},
+    {c:[516,343],w:104,s:72,pins:[['chi','Chichester','l','chichester'],['hfarm','H-FARM','l','hfarm']]},
+    {c:[712,376],w:470,s:72,arcs:[['hfarm','sha'],['sha','tok']],pins:[['hfarm'],['sha','China','l','china'],['tok','Japan','t','japan']]}
   ];
+  function pic(n){return 'img/pl/'+n+(n==='congo'?'.webp':'.jpg')}
+  CH.forEach(function(ch){ch.pins.forEach(function(p){if(p[3])new Image().src=pic(p[3])})});
   var DWELL=4200;
   var stage=document.getElementById('stage');
   if(stage){(function(){
@@ -52,14 +54,26 @@
       });
       pins.forEach(function(p){p.el.style.transform='translate('+sx(P[p.k]).toFixed(1)+'px,'+sy(P[p.k]).toFixed(1)+'px)'});
     }
-    function clampTags(){var s=stage.getBoundingClientRect();$$('.tag',pinsEl).forEach(function(t){t.style.translate='none';var r=t.getBoundingClientRect(),m=8,dx=0;if(r.left<s.left+m)dx=s.left+m-r.left;else if(r.right>s.right-m)dx=s.right-m-r.right;if(dx)t.style.translate=dx+'px 0'})}
+    function clampTags(){
+      var ch=CH[cur],gap=13,m=8,top=26;if(!ch)return;
+      $$('.pin',pinsEl).forEach(function(el,n){
+        var cd=el.querySelector('.pc');if(!cd)return;
+        var p=ch.pins[n],Q=P[p[0]],x=(Q[0]-ch.c[0])/ch.w*W+W/2,y=(Q[1]-ch.c[1])/ch.w*W+H/2,w=cd.offsetWidth,h=cd.offsetHeight,s=p[2],l,t;
+        if(s==='t'){l=-w/2;t=-h-gap}else if(s==='b'){l=-w/2;t=gap}else if(s==='l'){l=-w-gap;t=-h/2}else{l=gap;t=-h/2}
+        l=Math.max(m-x,Math.min(W-m-x-w,l));t=Math.max(top-y,Math.min(H-m-y-h,t));
+        cd.style.left=l+'px';cd.style.top=t+'px';
+        var ax=Math.max(16,Math.min(w-16,-l)),ay=Math.max(16,Math.min(h-16,-t));
+        if(s==='t'||s==='b'){cd.style.setProperty('--ax',ax+'px');cd.style.setProperty('--ay',s==='t'?'100%':'0%');cd.style.transformOrigin=ax+'px '+(s==='t'?'100%':'0')}
+        else{cd.style.setProperty('--ax',s==='l'?'100%':'0%');cd.style.setProperty('--ay',ay+'px');cd.style.transformOrigin=(s==='l'?'100%':'0')+' '+ay+'px'}
+      })
+    }
     function ease(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2}
     function go(i,instant){
       if(i===cur)return;cur=i;var ch=CH[i];
       caps.forEach(function(c,n){c.classList.toggle('on',n===i)});
       prev.disabled=i===0;next.disabled=i===CH.length-1;
       barEls.forEach(function(b,n){b.className=n<i?'done':n===i?(auto?'live':'held'):'';b.setAttribute('aria-current',n===i?'step':'false')});
-      pinsEl.innerHTML='';pins=ch.pins.map(function(p){var el=document.createElement('div');el.className=p[1]?'pin':'pin o';el.innerHTML='<span class="dot"></span>'+(p[1]?'<span class="tag '+p[2]+'">'+p[1]+'</span>':'');pinsEl.appendChild(el);return{k:p[0],el:el}});
+      pinsEl.innerHTML='';pins=ch.pins.map(function(p){var el=document.createElement('div');el.className=p[1]?'pin':'pin o';el.style.setProperty('--s',(ch.s||64)+'px');el.innerHTML='<span class="dot"></span>'+(p[1]?'<span class="pc"><img src="'+pic(p[3])+'" alt="" draggable="false"><b>'+p[1]+'</b></span>':'');pinsEl.appendChild(el);return{k:p[0],el:el}});clampTags();
       active=ch.arcs||[];
       cancelAnimationFrame(raf);clearTimeout(timer);
       var from={c:cam.c.slice(),w:cam.w},dur=(still||instant)?0:1250,t0=performance.now();
@@ -72,7 +86,7 @@
         cam.w=Math.exp(Math.log(from.w)+(Math.log(ch.w)-Math.log(from.w))*e);
         draw(Math.max(0,(t-.2)/.8));
         if(!lit&&t>=.72){lit=true;arrive()}
-        if(t<1)raf=requestAnimationFrame(frame);else clampTags();
+        if(t<1)raf=requestAnimationFrame(frame);
       })(t0);
       if(auto&&i<CH.length-1)timer=setTimeout(function(){go(i+1)},DWELL);
       else if(auto){timer=setTimeout(function(){stop()},DWELL)}
